@@ -1,0 +1,26 @@
+<fieldset>
+  <h1>Login</h1>
+  <form class="new_user" id="new_user" action="/users/sign_in" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="ARjPfOCVWXfPctA1jbGRuGwE9i4eSUjieECy-B6wmXPZIXy5zLI7st-N5ocJ9XPytiGRg6u3RHtJZRJ2MH2S3A">
+    <h3>e-mail </h3>
+    <div class="iconUser"></div>
+    <input autofocus="autofocus" autocomplete="email" type="email" value="" name="user[email]" id="user_email">
+
+    <h3>Password </h3>
+    <div class="iconPassword"></div>
+    <input autocomplete="off" type="password" name="user[password]" id="user_password">  </div>
+
+    <input name="user[remember_me]" type="hidden" value="0"><input type="checkbox" value="1" name="user[remember_me]" id="user_remember_me">
+    <h3>ログイン状態を保存する</h3>
+    
+    <div class="actions">
+      <input type="submit" name="commit" value="ログイン" data-disable-with="ログイン">
+    </div>
+  </form>
+</fieldset>
+
+<%= render "users/shared/links" %>
+<br>
+<br>
+<br>
+<br>
+

@@ -1,0 +1,49 @@
+<%= form_for @tweet do |f| %>
+    <%= f.label :タイトル %>
+        <br>
+        <%= f.text_field :title, size: 50%>
+        <br>
+
+    <%= f.label :投稿内容 %>
+    <%= f.text_field :body, :size => 1000 %> 
+
+    <div class="field">
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+    </div>
+
+    <div class="field">
+    <%= f.label :image %>
+    <%= f.file_field :image2 %>
+    </div>
+
+    <div class="field">
+    <%= f.label :image %>
+    <%= f.file_field :image3 %>
+    </div>
+
+    <div class="field">
+    <%= f.label :image %>
+    <%= f.file_field :image4 %>
+    </div>
+
+    <div class="field">
+    <%= f.label :image %>
+    <%= f.file_field :image5 %>
+    </div>
+
+    <%= f.label :タグ %>
+    <br>
+    <%= f.text_field :tags, size: 30%>
+    <br>
+    <%= f.text_field :tags2, size: 30%>
+    <br>
+    <%= f.text_field :tags3, size: 30%>
+    <br>
+    <%= f.text_field :tags4, size: 30%>
+    <br>
+    <%= f.text_field :tags5, size: 30%>
+    <br>
+
+    <%= f.submit "編集する" %>
+  <% end %>

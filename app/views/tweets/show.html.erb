@@ -1,0 +1,118 @@
+<%= stylesheet_link_tag 'show', :media => "all" %>
+
+<div class="tweets-container">
+
+<h3>投稿詳細</h3>
+<div class="tweet">
+
+
+  <p><%= @tweet.user.email %></p>
+
+  <p><%= image_tag @tweet.image_url, size: "250x200" if @tweet.image? %></p>
+  <p><%= image_tag @tweet.image2_url, size: "250x200" if @tweet.image2? %></p>
+  <p><%= image_tag @tweet.image3_url, size: "250x200" if @tweet.image3? %></p>
+  <p><%= image_tag @tweet.image4_url, size: "250x200" if @tweet.image4? %></p>
+  <p><%= image_tag @tweet.image5_url, size: "250x200" if @tweet.image5? %></p>
+
+
+  <p><%= @tweet.title %></p>
+  <p><%= @tweet.body %></p>
+  <p><%= @tweet.tags %></p>
+  <p><%= @tweet.tags2 %></p>
+  <p><%= @tweet.tags3 %></p>
+  <p><%= @tweet.tags4 %></p>
+  <p><%= @tweet.tags5 %></p>
+
+  
+  <p><%= @tweet.created_at %></p>
+  
+  
+  <% if user_signed_in? %>
+      <% if current_user.already_liked?(@tweet) %>
+          <%= link_to tweet_like_path(@tweet), method: :delete do %>
+            <i class="fas fa-heart"></i><%= @tweet.likes.count %>
+          <% end %>
+      <% else %>
+          <%= link_to tweet_likes_path(@tweet), method: :post do %>
+            <i class="far fa-heart"></i><%= @tweet.likes.count %>
+          <% end %>
+      <% end %>
+  <% else %>
+  <i class="far fa-heart"></i><%= @tweet.likes.count %>
+  <% end %>
+
+  <div id='map'></div>
+
+<style>
+#map {
+  height: 600px;
+  width: 100%;
+}
+</style>
+
+<!-- js部分 -->
+<script>
+//初期マップの設定
+let map
+let marker
+function initMap(){
+  geocoder = new google.maps.Geocoder()
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    center:  {lat: <%= @tweet.lat %>, lng: <%= @tweet.lng %>},
+    zoom: 15,
+  });
+
+   marker = new google.maps.Marker({
+    position:  {lat: <%= @tweet.lat %>, lng: <%= @tweet.lng %>},
+    map: map
+  });
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChYAOc-Yv8rP-7lPGG8_i1U0cDaqQJ1AE&callback=initMap" async defer></script>
+
+</div>
+
+</div>
+
+<div class="tweets-container">
+
+<h3>いいねしたユーザー</h3>
+<div class="like">
+<p><% @tweet.liked_users.each do |user| %></p>
+  <li><%= user.email %></li>
+<% end %>
+</div>
+
+<h3>コメント一覧</h3>
+  <% @comments.each do |c| %>
+    <div>
+      <%= c.user.email unless c.user.blank? %>
+      <br>
+      <%= c.content %>
+    </div>
+      <br>
+  <% end %>
+</div>
+
+<div class="comment-wrapper">
+<p>コメント投稿</p>
+<% if user_signed_in? %>
+    <%= form_with(model: [@tweet, @comment], local: true) do |f| %>
+      <%= f.text_area :content, size: "55x5" %>
+      <%= button_tag type: "submit" do %>
+        <i class="far fa-comments"></i> コメントする
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <br>
+
+  <%= link_to "編集する", edit_tweet_path(@tweet.id) %>
+  <%= link_to "投稿一覧に戻る", tweets_path %>
+</div>
+
+<br>
+<br>
+<br>
+<br>
