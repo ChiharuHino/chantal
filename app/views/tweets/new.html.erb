@@ -1,73 +1,61 @@
 <%= stylesheet_link_tag 'new', :media => "all" %>
 
 <div class="post-container">
-    <p class="title">投稿フォーム</p>
+    <div class="post_title">
+    <h1>投稿フォーム</h1>
+    </div>
+
     <%= form_for(@tweet, :url => { controller:'tweets', action:'create'})do |f| %>
 
-    <%= f.label :タイトル %>
-        <br>
-        <%= f.text_field :title, size: 50%>
-        <br>
+    <form id="form" class="topBefore">
 
-    <%= f.label :投稿内容 %>
-        <br>
-        <%= f.text_area :body, :size => 1000 %>
-        <br>
+    <form class="new_tweet" id="new_tweet" enctype="multipart/form-data" action="/tweets" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="M2E8gfbcjohbmKUGCL89j_MDrFYEow1Bz5bQqoOOQYTRr4mDo8FqGpyDyh04PqXFgC1Hwg56kK2Sxq87r9KZ0A">
+
+    <input  size="50" type="text" placeholder="タイトル" name="tweet[title]" id="tweet_title">
+    <input id="tweet_body" type="text" placeholder="投稿内容"　name="tweet[body]">
 
     <div class="field">
-        <%= f.label :image %>
-        <%= f.file_field :image %>
+        <input type="file" name="tweet[image]" id="tweet_image" placeholder="写真">
     </div>
-
     <div class="field">
-        <%= f.label :image %>
-        <%= f.file_field :image2 %>
+        <input type="file" name="tweet[image2]" id="tweet_image2" placeholder="写真">
     </div>
-
     <div class="field">
-        <%= f.label :image %>
-        <%= f.file_field :image3 %>
+        <input type="file" name="tweet[image3]" id="tweet_image3" placeholder="写真">
     </div>
-
     <div class="field">
-        <%= f.label :image %>
-        <%= f.file_field :image4 %>
+        <input type="file" name="tweet[image4]" id="tweet_image4" placeholder="写真">
     </div>
-
     <div class="field">
-         <%= f.label :image %>
-        <%= f.file_field :image5 %>
+        <input type="file" name="tweet[image5]" id="tweet_image5" placeholder="写真">
     </div>
 
-    <%= f.label :タグ %>
-        <br>
-        <%= f.text_field :tags, size: 30%>
-        <br>
-        <%= f.text_field :tags2, size: 30%>
-        <br>
-        <%= f.text_field :tags3, size: 30%>
-        <br>
-        <%= f.text_field :tags4, size: 30%>
-        <br>
-        <%= f.text_field :tags5, size: 30%>
-        <br>
+      <input size="30" type="text" name="tweet[tags]" id="tweet_tags" placeholder="タグ">
+      <input size="30" type="text" name="tweet[tags2]" id="tweet_tags2" placeholder="タグ">
+      <input size="30" type="text" name="tweet[tags3]" id="tweet_tags3" placeholder="タグ">
+      <input size="30" type="text" name="tweet[tags4]" id="tweet_tags4" placeholder="タグ">
+      <input size="30" type="text" name="tweet[tags5]" id="tweet_tags5" placeholder="タグ">
     
     
 
-<%= form_with(model: @tweet, local: true) do |f| %>
+<input type="hidden" name="authenticity_token" value="M2E8gfbcjohbmKUGCL89j_MDrFYEow1Bz5bQqoOOQYTRr4mDo8FqGpyDyh04PqXFgC1Hwg56kK2Sxq87r9KZ0A">
     <div class="actions">
-      <%= f.label :lat,"緯度" %>
-      <%= f.text_field :lat,:value =>"緯度", id: :lat %>
-      <%= f.label :lng,"経度" %>
-      <%= f.text_field :lng,:value =>"経度", id: :lng %>
-      <%= f.submit "投稿"%>
+      <input value="" id="lat" type="text" name="tweet[lat]" placeholder="緯度">
+      <input value="" id="lng" type="text" name="tweet[lng]" placeholder="経度">
+      <input id="submit"　type="submit" name="commit" value="投稿" data-disable-with="投稿">
     </div>
-<% end %>
+</form>
   
 <h2>Map</h2>
-  
-  <input id="address" type="textbox" value="GeekSalon">
-  <input type="button" value="検索" onclick="codeAddress()">
+<div class="search_container"
+<div class="search-box">
+  <input  type="text" id="address"  size="25" value="" >
+  <input type="submit" value="" onclick="codeAddress()">
+  <i class="fas fa-search"></i></input>
+</div>
+</div>
+
+
   <p>マーカーをドラック＆ドロップで位置の調整ができます。<p>
   <div id='map'></div>
   

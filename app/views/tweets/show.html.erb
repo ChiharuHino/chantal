@@ -17,13 +17,11 @@
 
   <p><%= @tweet.title %></p>
   <p><%= @tweet.body %></p>
-  <p><%= @tweet.tags %></p>
-  <p><%= @tweet.tags2 %></p>
-  <p><%= @tweet.tags3 %></p>
-  <p><%= @tweet.tags4 %></p>
-  <p><%= @tweet.tags5 %></p>
-
-  
+  <p><%= link_to @tweet.tags,  controller: "tweets", action: "index", search: @tweet.tags %></p>
+  <p><%= link_to @tweet.tags2,  controller: "tweets", action: "index", search: @tweet.tags2 %></p>
+  <p><%= link_to @tweet.tags3,  controller: "tweets", action: "index", search: @tweet.tags3 %></p>
+  <p><%= link_to @tweet.tags4,  controller: "tweets", action: "index", search: @tweet.tags4 %></p>
+  <p><%=  link_to @tweet.tags5,  controller: "tweets", action: "index", search: @tweet.tags5 %></p>
   <p><%= @tweet.created_at %></p>
   
   

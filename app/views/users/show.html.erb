@@ -1,40 +1,154 @@
-<h1>マイページ</h1>
-<p><%= image_tag @user.myphoto_url, size: "250x200" if @user.myphoto? %></p>
-<p>名前 : <%= @user.name %></p>
-<p>メールアドレス : <%= @user.email %></p>
-<p>プロフィール : <%= @user.profile %></p>
+<div class="myprofile_container">
+<div class="myprofile">
 
-<% if current_user.id == @user.id %>
-  <%= link_to "編集する", edit_user_registration_path %>
-<% end %>
+  <div class="left_container">
+    <div class="myphoto">
+      <p><%= image_tag @user.myphoto_url, size: "200x200" if @user.myphoto? %></p>
+    </div>
+    <div class="follow">
+      <div id="follow_form">
+        <form class="new_relationship" id="new_relationship" action="/relationships" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="pFr-HdJx3Uc0hE96_9J81V9FTB11rCLl4XRfKFuKtSOe98UdLR3VGUWveqZtcstNtAvVcBSstJ0d4D6Fdj5vrg">
+          <div><input type="hidden" value="2" name="relationship[following_id]" id="relationship_following_id"></div>
+          <input type="submit" name="commit" value="Follow" class="btn btn-large btn-primary follow-btn" data-disable-with="Follow">
+        </form>
+      </div>      
+　　　  <%= render 'stats' %>
+    </div>
+  </div>
 
-<%= render 'follow_form' %>
-　　　<%= render 'stats' %>
+  <div class="right_container">
+    <div class="myname">
+      <p>名前 : <%= @user.name %></p>
+    </div>
+    <div class="mymail">
+      <p>メールアドレス : <%= @user.email %></p>
+    </div>
+    <div class="profile">
+      <p>プロフィール : <%= @user.profile %></p>
+    </div>
+    <div class="myedit">
+      <% if current_user.id == @user.id %>
+        <%= link_to "編集する", edit_user_registration_path %>
+      <% end %>
+    </div>
+  </div>
 
-
+</div>
+</div>
 
 <div class="tweets-container">
+  <h2>ユーザーの投稿一覧</h2>
+  <ul class="tw">
+  <% @user.tweets.each do |t| %>
+    <li>
+    <div class="tweet">
+      <div class="tweet_images">
+      <%= image_tag t.image_url, size: "250x200" if t.image? %>
+      </div>
+      <%= t.title %>
+      <div class="tweet_heart">
+        <% if user_signed_in? %>
+          <% if current_user.already_liked?(t) %>
+            <%= link_to tweet_like_path(id: t.id, tweet_id: t.id), method: :delete do %>
+            <i class="fas fa-heart"></i><%= t.likes.count %>
+          <% end %>
+        <% else %>
+          <%= link_to tweet_likes_path(id: t.id, tweet_id: t.id), method: :post do %>
+            <i class="far fa-heart"></i><%= t.likes.count %>
+          <% end %>
+        <% end %>
+        <% else %>
+          <i class="far fa-heart"></i><%= t.likes.count %>
+        <% end %>
+      </div>
+      <div class="tweet_tags">
+        <%= link_to t.tags,  controller: "tweets", action: "index", search: t.tags%>
+        <%= link_to t.tags2,  controller: "tweets", action: "index", search: t.tags2%>
+        <%= link_to t.tags3,  controller: "tweets", action: "index", search: t.tags3%>
+        <%= link_to t.tags4,  controller: "tweets", action: "index", search: t.tags4%>
+        <%= link_to t.tags5,  controller: "tweets", action: "index", search: t.tags5%>
+      </div>
+      <div class="tweet_detail">
+        <%= link_to "詳細へ", tweet_path(t.id) %>
+      </div>
 
-<h2>ユーザーの投稿一覧</h2>
-<% @user.tweets.each do |t| %>
-  <div class="tweet">
-  <%= image_tag t.image_url, size: "250x200" if t.image? %>
-  <%= t.title %>
-  <%= t.body %>
-  </div>
-<% end %>
+      <div class="tweet_edit_delate">
+　　    <% if user_signed_in? && current_user.id == t.user_id %>  
+    　     <%= link_to "編集する", edit_tweet_path(t.id) %>
+    　    <%= link_to "削除する", tweet_path(t.id), method: :delete %>
+　　    <% end %> 　
+      </div>
 
+      <p class="tweet_time">
+       <%= t.created_at %>
+      </p>
+　  </li>
+  <% end %>
+  </ul>
+    </div>
+    
 <br>
 <!-- 以下はいいね機能を実装している場合-->
-<h2>ユーザーがいいねした投稿一覧</h2>
-<% @user.liked_tweets.each do |t| %>
-  <div class="tweet">
-  <%= image_tag t.image_url, size: "250x200" if t.image? %>
-  <%= t.user.name %>
-  <%= t.title %>
-  <%= t.body %>
-  </div>
-<% end %>
+  <h2>ユーザーがいいねした投稿一覧</h2>
+  <ul class="tw">
+  <% @user.liked_tweets.each do |t| %>
+    <li>
+    <div class="tweet"> 
+    <div class="tweet_images">
+      <%= image_tag t.image_url, size: "370×370" if t.image? %>
+    </div>
+    <div class="tweet_user_name_heart">
+    <div class="tweet_user_name">
+      <a href="/users/<%= t.user.id %>"><%= t.user.name %></a>
+    </div>
+
+    <div class="tweet_heart">
+    <% if user_signed_in? %>
+      <% if current_user.already_liked?(t) %>
+          <%= link_to tweet_like_path(id: t.id, tweet_id: t.id), method: :delete do %>
+            <i class="fas fa-heart"></i><%= t.likes.count %>
+          <% end %>
+      <% else %>
+          <%= link_to tweet_likes_path(id: t.id, tweet_id: t.id), method: :post do %>
+            <i class="far fa-heart"></i><%= t.likes.count %>
+          <% end %>
+      <% end %>
+    <% else %>
+      <i class="far fa-heart"></i><%= t.likes.count %>
+    <% end %>
+    </div>
+    </div>
+
+    <div class="tweet_title">
+      <%= t.title %>
+    </div>
+
+    <div class="tweet_tags">
+      <%= link_to t.tags,  controller: "tweets", action: "index", search: t.tags%>
+      <%= link_to t.tags2,  controller: "tweets", action: "index", search: t.tags2%>
+      <%= link_to t.tags3,  controller: "tweets", action: "index", search: t.tags3%>
+      <%= link_to t.tags4,  controller: "tweets", action: "index", search: t.tags4%>
+      <%= link_to t.tags5,  controller: "tweets", action: "index", search: t.tags5%>
+    </div>
+
+    <div class="tweet_detail">
+      <%= link_to "詳細へ", tweet_path(t.id) %>
+    </div>
+
+    <div class="tweet_edit_delate">
+　　  <% if user_signed_in? && current_user.id == t.user_id %>  
+    　<%= link_to "編集する", edit_tweet_path(t.id) %>
+    　<%= link_to "削除する", tweet_path(t.id), method: :delete %>
+　　  <% end %> 　
+    </div>
+
+    
+    <p class="tweet_time">
+      <%= t.created_at %>
+    </p>
+　  </li>
+  <% end %>
+</ul>
 <!-- ここまで-->
 <br>
 

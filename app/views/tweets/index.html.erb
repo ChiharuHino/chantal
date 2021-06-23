@@ -1,47 +1,46 @@
 <%= stylesheet_link_tag 'index', :media => "all" %>
 
-<h3>投稿を検索</h3>
- <%= form_tag({controller:"tweets",action:"index"}, method: :get) do %>
-   <%= text_field_tag :search %>
-   <%= submit_tag '検索する'  %>
-<% end %>
+<form action="/tweets" accept-charset="UTF-8" method="get" class="search_container">
+  <div class="search-box">
+  <input type="text" name="search" id="search" size="25" placeholder="投稿を検索">
+  <input type="submit" name="commit" value="" data-disable-with="">
+  <i class="fas fa-search"></i></input>
+  </div>
+</form>
 
-
-<h3>投稿ランキング</h3>
-<% @all_ranks.each.with_index(1) do |t, i|  %>
-  第
-  <%= i %>
-  位
-  <%= t.title %>  
-  <br>
-<% end %>  
-<br>
-
-<h3>投稿一覧</h3>
-
-<br>
-<%= page_entries_info @tweets %>
-
+<div class="ranking_container">
+  <div class="raiking_title">
+    <h3>投稿ランキング</h3>
+  </div>
+  <div class="ranking">
+    <% @all_ranks.each.with_index(1) do |t, i|  %>
+    第
+    <%= i %>
+    位
+    <%= t.title %>  
+    <br>
+    <% end %>  
+    <br>
+  </div>
+</div>
 
 <div class="tweets-container">
-
-<%= paginate @tweets %>
-
-
+  <%= page_entries_info @tweets %>
+  <%= paginate @tweets %>
+  
+  <ul class="tw">
   <% @tweets.each do |t| %>
-  <div class="tweet">
-
+  <li>
+  <div class="tweet"> 
+    <div class="tweet_images">
+      <%= image_tag t.image_url, size: "370×370" if t.image? %>
+    </div>
+    <div class="tweet_user_name_heart">
     <div class="tweet_user_name">
       <a href="/users/<%= t.user.id %>"><%= t.user.name %></a>
     </div>
-    <%= image_tag t.image_url, size: "250x200" if t.image? %>
-    <%= image_tag t.image2_url, size: "250x200" if t.image2? %>
-    <%= image_tag t.image3_url, size: "250x200" if t.image3? %>
-    <%= image_tag t.image4_url, size: "250x200" if t.image4? %>
-    <%= image_tag t.image5_url, size: "250x200" if t.image5? %>
 
-
-    <%= t.user.email %>
+    <div class="tweet_heart">
     <% if user_signed_in? %>
       <% if current_user.already_liked?(t) %>
           <%= link_to tweet_like_path(id: t.id, tweet_id: t.id), method: :delete do %>
@@ -55,91 +54,42 @@
     <% else %>
       <i class="far fa-heart"></i><%= t.likes.count %>
     <% end %>
-
-
-    <div class="left-container">
-    <%= t.title %>
-    <%=safe_join(t.body.split("\n"),tag(:br))%>
+    </div>
     </div>
 
-    <div class="right-container">
-    <%= link_to t.tags,  controller: "tweets", action: "index", search: t.tags%>
-    <%= link_to t.tags2,  controller: "tweets", action: "index", search: t.tags2%>
-    <%= link_to t.tags3,  controller: "tweets", action: "index", search: t.tags3%>
-    <%= link_to t.tags4,  controller: "tweets", action: "index", search: t.tags4%>
-    <%= link_to t.tags5,  controller: "tweets", action: "index", search: t.tags5%>
-    <%= link_to "詳細へ", tweet_path(t.id) %>
-　　<% if user_signed_in? && current_user.id == t.user_id %>  
+    <div class="tweet_title">
+      <%= t.title %>
+    </div>
+
+    <div class="tweet_tags">
+      <%= link_to t.tags,  controller: "tweets", action: "index", search: t.tags%>
+      <%= link_to t.tags2,  controller: "tweets", action: "index", search: t.tags2%>
+      <%= link_to t.tags3,  controller: "tweets", action: "index", search: t.tags3%>
+      <%= link_to t.tags4,  controller: "tweets", action: "index", search: t.tags4%>
+      <%= link_to t.tags5,  controller: "tweets", action: "index", search: t.tags5%>
+    </div>
+
+    <div class="tweet_detail">
+      <%= link_to "t.title", tweet_path(t.id) %>
+    </div>
+
+    <div class="tweet_edit_delate">
+　　  <% if user_signed_in? && current_user.id == t.user_id %>  
     　<%= link_to "編集する", edit_tweet_path(t.id) %>
     　<%= link_to "削除する", tweet_path(t.id), method: :delete %>
-　　<% end %> 　
+　　  <% end %> 　
     </div>
 
-    <p class="time">
-    <%= t.created_at %>
+    
+    <p class="tweet_time">
+      <%= t.created_at %>
     </p>
-　　　　　　　　　　　　　　　　　　　　　　　　
-  </div>
-
+　  </li>
   <% end %>
+  </ul>
+  
   <%= paginate @tweets %>
 </div>
-
-
-<h2>gmap</h2>
-
-<input id="address" type="textbox" value="GeekSalon">
-<input type="button" value="Encode" onclick="codeAddress()">
-
-<div id='map'></div>
-
-<style>
-#map {
-  height: 600px;
-  width: 600px;
-}
-</style>
-
-<script>
-let map
-
-function initMap(){
-  geocoder = new google.maps.Geocoder()
-
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 40.7828, lng:-73.9653},
-    zoom: 12,
-  });
-
-  marker = new google.maps.Marker({
-    position:  {lat: 40.7828, lng:-73.9653},
-    map: map
-  });
-}
-
-let geocoder
-
-function codeAddress(){
-  let inputAddress = document.getElementById('address').value;
-
-  geocoder.geocode( { 'address': inputAddress}, function(results, status) {
-    if (status == 'OK') {
-      map.setCenter(results[0].geometry.location);
-      var marker = new google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location
-      });
-    } else {
-      alert('該当する結果がありませんでした：' + status);
-    }
-  });   
-}
-
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChYAOc-Yv8rP-7lPGG8_i1U0cDaqQJ1AE&callback=initMap" async defer></script>
-
-
-
 <br>
 <br>
 <br>

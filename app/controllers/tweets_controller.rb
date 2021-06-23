@@ -2,15 +2,15 @@ class TweetsController < ApplicationController
   before_action :authenticate_user!,except: [:index, :show]
   def index
     if params[:search] == nil
-      @tweets= Tweet.all.page(params[:page]).per(3).order(created_at: :desc)
+      @tweets= Tweet.all.page(params[:page]).per(10).order(created_at: :desc)
     elsif params[:search] == ''
-      @tweets= Tweet.all.page(params[:page]).per(3).order(created_at: :desc)
+      @tweets= Tweet.all.page(params[:page]).per(10).order(created_at: :desc)
     else
     #部分検索
       search = params[:search]
       @tweets = Tweet.where(['title LIKE ? OR body LIKE ? OR tags LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%"]).page(params[:page]).per(3).order(created_at: :desc)
     end
-    @all_ranks = Tweet.find(Like.group(:tweet_id).order('count(tweet_id) desc').limit(3).pluck(:tweet_id))
+    @all_ranks = Tweet.find(Like.group(:tweet_id).order('count(tweet_id) desc').limit(5).pluck(:tweet_id))
   end
   def new
     @tweet = Tweet.new
