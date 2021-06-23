@@ -1,4 +1,10 @@
 <%= stylesheet_link_tag 'index', :media => "all" %>
+<section id="top">
+    <div class="title-container">
+    <img src="./image/image1.jpg" alt="" />
+    <p2 class="absolute">Idea-Matching</p2>
+    </div>
+</section>
 
 <form action="/tweets" accept-charset="UTF-8" method="get" class="search_container">
   <div class="search-box">
@@ -70,7 +76,7 @@
     </div>
 
     <div class="tweet_detail">
-      <%= link_to "t.title", tweet_path(t.id) %>
+      <%= link_to "詳細", tweet_path(t.id) %>
     </div>
 
     <div class="tweet_edit_delate">
