@@ -8,7 +8,7 @@ class TweetsController < ApplicationController
     else
     #部分検索
       search = params[:search]
-      @tweets = Tweet.where(['title LIKE ? OR body LIKE ? OR tags LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%"]).page(params[:page]).per(3).order(created_at: :desc)
+      @tweets = Tweet.where(['title LIKE ? OR body LIKE ? OR tags LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%"]).page(params[:page]).per(10).order(created_at: :desc)
     end
     @all_ranks = Tweet.find(Like.group(:tweet_id).order('count(tweet_id) desc').limit(5).pluck(:tweet_id))
   end

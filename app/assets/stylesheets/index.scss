@@ -1,7 +1,88 @@
+.lecture_container{
+  width: 100%;
+}
+
+.catch_copy{
+  text-align: center;
+}
+
+.lecture_container h1{
+  color: #fff;
+  font-family: constantia,sans-serif;
+	text-shadow: 0 0 10px #fff,0 0 15px #fff;
+}
+
+.how_to_use{
+  display: flex;
+  justify-content: space-between;
+}
+
+.use{
+  width: 30%;
+  margin: 20px auto;
+  border-radius: 20px;
+  border: solid 3px;
+  border-color: #ffffff;
+  text-align: center;
+}
+
+.use h2{
+  color: #fff;
+  font-family: constantia,sans-serif;
+	text-shadow: 0 0 10px #fff,0 0 15px #fff;
+  padding: 10px;
+}
+
+.use h3{
+  color: #fff;
+  font-family: constantia,sans-serif;
+	text-shadow: 0 0 10px #fff,0 0 15px #fff;
+  padding: 10px;
+}
+
+.pen_size{
+  font-size: 5em;
+  padding: 10px;
+}
+
+.pen_color{
+  color: #fff;
+	text-shadow: 0 0 10px #fff,0 0 15px #fff;
+}
+
+.eye_size{
+  font-size: 5em;
+  padding: 10px;
+}
+
+.eye_color{
+  color: #fff;
+	text-shadow: 0 0 10px #fff,0 0 15px #fff;
+}
+
+.heart_size{
+  font-size: 5em;
+  padding: 10px;
+}
+
+.heart_color{
+  color: #fff;
+	text-shadow: 0 0 10px #fff,0 0 15px #fff;
+}
+
 .ranking_container{
     margin:10px auto;
     width: 60%;
+    background-color: #2f2f2f;
+    border-radius: 20px;
+    border: solid 3px;
+    border-color: #696969;
   }
+
+
+.crown_color{
+  color: #e0e0e0;
+}
 
   .raiking_title{
     margin:10px auto;
@@ -10,12 +91,13 @@
 
   .ranking{
     text-align: center;
+    font-weight: bold;
   }
 
   .search_container{
     box-sizing: border-box;
     position: relative;
-    border: 1px solid #999;
+    border: 2px solid #e0e0e0;
     display: block;
     padding: 3px 10px;
     border-radius: 20px;
@@ -27,7 +109,6 @@
   .search_container input[type="text"]{
     border: none;
     height: 2.0em;
-    background-color: #f0f8ff;
   }
   .search_container input[type="text"]:focus {
     outline: 0;
@@ -55,6 +136,11 @@
   .fa-search {
     margin-top: 5px;
     margin-right: 5px;
+    color: #fff
+  }
+
+  .search_collor{
+    color: #fff;
   }
 
   

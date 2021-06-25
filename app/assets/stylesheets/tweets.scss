@@ -1,3 +1,87 @@
 // Place all the styles related to the tweets controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+.tweets-container {
+    width: 100%;
+    display:flex;
+    flex-flow: row wrap;
+}
+
+.paginate{
+    margin-left: 20px;
+}
+
+
+.tweet {
+    background-color: #2f2f2f;
+    margin: 20px auto;
+    border-radius: 20px;
+    border: solid 3px;
+    border-color: #696969;
+}
+
+.tweet_user_name_heart{
+    display: flex;
+    padding-top: 10px;
+
+}
+
+.tweet_user_name{
+    padding-left: 20px;
+    align-items: flex-start;
+    font-family: Arial, Helvetica, sans-serif, sans-serif;
+    font-weight: bold;
+}
+
+.tweet_images img {
+    width: 100%;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.tweet_title{
+    padding: 10px 20px;
+    font-weight: bold;
+}
+
+.tweet_heart{
+    padding-left: 10px;
+}
+
+.tweet_body{
+    padding: 10px 20px;
+}
+
+.tweet_tags{
+    padding: 10px 20px;
+}x
+
+.tweet_detail_edit_delate{
+    display: flex;
+}
+
+.tweet_detail{
+    padding: 10px 20px;
+}
+
+.tweet_edit_delate{
+    padding-top: 10px;
+}
+
+.tweet_time{
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 20px;
+}
+
+ul.tw{
+    width: 100%;
+    list-style: none outside;
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row wrap;
+    }
+ul.tw li{
+    float: left;
+    width: 40%;
+    }

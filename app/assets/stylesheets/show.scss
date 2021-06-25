@@ -1,13 +1,35 @@
-.tweets-container {
-    
+
+.tweets-container h2 {
+    margin: 0 auto;
+    padding: 40px 0;
   }
-  h3 {
-    
-  }
-  .tweet {
-  
-    
-  }
+
+  .tweet_show {
+    width: 60%;
+    background-color: #2f2f2f;
+    margin: 20px auto;
+    border-radius: 20px;
+    border: solid 3px;
+    border-color: #696969;
+}
+
+.tweet_title_heart{
+    display: flex;
+    padding-top: 10px;
+}
+
+.tweet_title{
+  padding-left: 20px;
+  align-items: flex-start;
+  font-family: Arial, Helvetica, sans-serif, sans-serif;
+  font-weight: bold;
+}
+
+.tweet_body{
+  padding: 10px 20px;
+}
+
+
   .main-box {
     width: 70%;
     margin: 5px 0;
@@ -18,14 +40,21 @@
     display: flex;
     justify-content: flex-end;
   }
+  .like_container{
+    background-color: #2f2f2f;
+  }
+
   .like {
-    border-top: solid #66cdaa;
     margin-top: 10px;
     padding-top: 20px;
   }
+  .comment{
+    background-color: #2f2f2f;
+  }
   .comment-wrapper{
-    width: 50%;
+    width: 100%;
     margin: 10px auto;
     display: flex;
     flex-direction: column;
+    background-color: #2f2f2f;
   }

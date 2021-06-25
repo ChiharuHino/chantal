@@ -1,21 +1,39 @@
 <%= stylesheet_link_tag 'index', :media => "all" %>
-<section id="top">
-    <div class="title-container">
-    <img src="./image/image1.jpg" alt="" />
-    <p2 class="absolute">Idea-Matching</p2>
+
+<div class="lecture_container">
+  <div class="catch_copy">
+    <h1>感動とワクワクを、シェアしよう。</h1>
+  </div>
+  <div class="how_to_use">
+    <div class="use">
+      <h2>Posting</h2>
+      <i class="fas fa-pen-fancy pen_size pen_color"></i>
+      <h3>体験を投稿</h3>
     </div>
-</section>
+    <div class="use">
+      <h2>Reading</h2>
+      <i class="fas fa-eye eye_size eye_color"></i>
+      <h3>体験を読む</h3>
+    </div>
+    <div class="use">
+      <h2>Like!</h2>
+      <i class="fas fa-heart heart_size heart_color"></i>
+      <h3>いいね！とフォロー</h3>
+    </div>
+  </div>
+</div>
 
 <form action="/tweets" accept-charset="UTF-8" method="get" class="search_container">
   <div class="search-box">
-  <input type="text" name="search" id="search" size="25" placeholder="投稿を検索">
-  <input type="submit" name="commit" value="" data-disable-with="">
-  <i class="fas fa-search"></i></input>
+    <input type="text" name="search" id="search" size="25" placeholder="投稿を検索">
+    <input type="submit" name="commit" value="" data-disable-with="">
+    <i class="fas fa-search search_color"></i></input>
   </div>
 </form>
 
 <div class="ranking_container">
   <div class="raiking_title">
+    <i class="fas fa-crown crown_size crown_color"></i>
     <h3>投稿ランキング</h3>
   </div>
   <div class="ranking">
@@ -24,6 +42,7 @@
     <%= i %>
     位
     <%= t.title %>  
+    <%= link_to "詳細", tweet_path(t.id) %>
     <br>
     <% end %>  
     <br>
@@ -31,70 +50,78 @@
 </div>
 
 <div class="tweets-container">
-  <%= page_entries_info @tweets %>
-  <%= paginate @tweets %>
+  <div class="paginate">
+    <%= page_entries_info @tweets %>
+    <%= paginate @tweets %>
+  </div>
   
   <ul class="tw">
-  <% @tweets.each do |t| %>
-  <li>
-  <div class="tweet"> 
-    <div class="tweet_images">
-      <%= image_tag t.image_url, size: "370×370" if t.image? %>
-    </div>
-    <div class="tweet_user_name_heart">
-    <div class="tweet_user_name">
-      <a href="/users/<%= t.user.id %>"><%= t.user.name %></a>
-    </div>
+    <% @tweets.each do |t| %>
+      <li>
+        <div class="tweet"> 
+          <div class="tweet_images">
+            <%= image_tag t.image_url, size: "370×370" if t.image? %>
+          </div>
+          <div class="tweet_user_name_heart">
+            <div class="tweet_user_name">
+              <% if user_signed_in? %>
+              <a href="/users/<%= t.user.id %>"><%= t.user.name %></a>
+              <% else %>
+              <%= t.user.name %>
+              <% end %>
+            </div>
 
-    <div class="tweet_heart">
-    <% if user_signed_in? %>
-      <% if current_user.already_liked?(t) %>
-          <%= link_to tweet_like_path(id: t.id, tweet_id: t.id), method: :delete do %>
-            <i class="fas fa-heart"></i><%= t.likes.count %>
-          <% end %>
-      <% else %>
-          <%= link_to tweet_likes_path(id: t.id, tweet_id: t.id), method: :post do %>
-            <i class="far fa-heart"></i><%= t.likes.count %>
-          <% end %>
+            <div class="tweet_heart">
+              <% if user_signed_in? %>
+                <% if current_user.already_liked?(t) %>
+                  <%= link_to tweet_like_path(id: t.id, tweet_id: t.id), method: :delete do %>
+                  <i class="fas fa-heart"></i><%= t.likes.count %>
+                <% end %>
+                <% else %>
+                  <%= link_to tweet_likes_path(id: t.id, tweet_id: t.id ), method: :post do %>
+                  <i class="far fa-heart"></i><%= t.likes.count %>
+                <% end %>
+              <% end %>
+              <% else %>
+                <i class="far fa-heart"></i><%= t.likes.count %>
+              <% end %>
+            </div>
+          </div>
+      
+          <div class="tweet_title">
+            <%= t.title %>
+          </div>
+
+          <div class="tweet_tags">
+            <%= link_to t.tags,  controller: "tweets", action: "index", search: t.tags%>
+            <%= link_to t.tags2,  controller: "tweets", action: "index", search: t.tags2%>
+            <%= link_to t.tags3,  controller: "tweets", action: "index", search: t.tags3%>
+            <%= link_to t.tags4,  controller: "tweets", action: "index", search: t.tags4%>
+            <%= link_to t.tags5,  controller: "tweets", action: "index", search: t.tags5%>
+          </div>
+
+          <div class="tweet_detail_edit_delate">
+            <div class="tweet_detail">
+              <%= link_to "詳細", tweet_path(t.id) %>
+            </div>
+              <div class="tweet_edit_delate">
+　　            <% if user_signed_in? && current_user.id == t.user_id %>  
+    　            <%= link_to "編集する", edit_tweet_path(t.id) %>
+    　            <%= link_to "削除する", tweet_path(t.id), method: :delete %>
+　　            <% end %> 　
+              </div>
+          </div>
+
+          <p class="tweet_time">
+            <%= t.created_at %>
+          </p>
+　      </li>
       <% end %>
-    <% else %>
-      <i class="far fa-heart"></i><%= t.likes.count %>
-    <% end %>
-    </div>
-    </div>
+    </ul>
 
-    <div class="tweet_title">
-      <%= t.title %>
-    </div>
-
-    <div class="tweet_tags">
-      <%= link_to t.tags,  controller: "tweets", action: "index", search: t.tags%>
-      <%= link_to t.tags2,  controller: "tweets", action: "index", search: t.tags2%>
-      <%= link_to t.tags3,  controller: "tweets", action: "index", search: t.tags3%>
-      <%= link_to t.tags4,  controller: "tweets", action: "index", search: t.tags4%>
-      <%= link_to t.tags5,  controller: "tweets", action: "index", search: t.tags5%>
-    </div>
-
-    <div class="tweet_detail">
-      <%= link_to "詳細", tweet_path(t.id) %>
-    </div>
-
-    <div class="tweet_edit_delate">
-　　  <% if user_signed_in? && current_user.id == t.user_id %>  
-    　<%= link_to "編集する", edit_tweet_path(t.id) %>
-    　<%= link_to "削除する", tweet_path(t.id), method: :delete %>
-　　  <% end %> 　
-    </div>
-
-    
-    <p class="tweet_time">
-      <%= t.created_at %>
-    </p>
-　  </li>
-  <% end %>
-  </ul>
-  
-  <%= paginate @tweets %>
+  <div class="paginate">
+    <%= paginate @tweets %>
+  <div>
 </div>
 <br>
 <br>

@@ -1,43 +1,54 @@
 <%= stylesheet_link_tag 'show', :media => "all" %>
 
 <div class="tweets-container">
+<div class="tweet_show">
+  <div class="tweet_images">
+    <p><%= image_tag @tweet.image_url, size: "370x370" if @tweet.image? %></p>
+    <p><%= image_tag @tweet.image2_url, size: "370x370" if @tweet.image2? %></p>
+    <p><%= image_tag @tweet.image3_url, size: "370x370" if @tweet.image3? %></p>
+    <p><%= image_tag @tweet.image4_url, size: "370x370" if @tweet.image4? %></p>
+    <p><%= image_tag @tweet.image5_url, size: "370x370" if @tweet.image5? %></p>
+  </div>
 
-<h3>投稿詳細</h3>
-<div class="tweet">
+  <div class="tweet_title_heart">
+    <div class="tweet_title">
+      <p><%= @tweet.title %></p>
+    </div>
 
+    <div class="tweet_heart">
+      <% if user_signed_in? %>
+        <% if current_user.already_liked?(@tweet) %>
+          <%= link_to tweet_like_path(@tweet), method: :delete do %>
+            <i class="fas fa-heart"></i><%= @tweet.likes.count %>
+          <% end %>
+        <% else %>
+          <%= link_to tweet_likes_path(@tweet), method: :post do %>
+            <i class="far fa-heart"></i><%= @tweet.likes.count %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <i class="far fa-heart"></i><%= @tweet.likes.count %>
+      <% end %>
+    </div>
+  </div>
+  
+  <div class="tweet_body">
+    <p><%= @tweet.body %></p>
+  </div>
 
-  <p><%= @tweet.user.email %></p>
-
-  <p><%= image_tag @tweet.image_url, size: "250x200" if @tweet.image? %></p>
-  <p><%= image_tag @tweet.image2_url, size: "250x200" if @tweet.image2? %></p>
-  <p><%= image_tag @tweet.image3_url, size: "250x200" if @tweet.image3? %></p>
-  <p><%= image_tag @tweet.image4_url, size: "250x200" if @tweet.image4? %></p>
-  <p><%= image_tag @tweet.image5_url, size: "250x200" if @tweet.image5? %></p>
-
-
-  <p><%= @tweet.title %></p>
-  <p><%= @tweet.body %></p>
+  <div class="tweet_tags">
   <p><%= link_to @tweet.tags,  controller: "tweets", action: "index", search: @tweet.tags %></p>
   <p><%= link_to @tweet.tags2,  controller: "tweets", action: "index", search: @tweet.tags2 %></p>
   <p><%= link_to @tweet.tags3,  controller: "tweets", action: "index", search: @tweet.tags3 %></p>
   <p><%= link_to @tweet.tags4,  controller: "tweets", action: "index", search: @tweet.tags4 %></p>
   <p><%=  link_to @tweet.tags5,  controller: "tweets", action: "index", search: @tweet.tags5 %></p>
+  </div>
+
+  <div class="tweet_time">
   <p><%= @tweet.created_at %></p>
+  </div>
   
   
-  <% if user_signed_in? %>
-      <% if current_user.already_liked?(@tweet) %>
-          <%= link_to tweet_like_path(@tweet), method: :delete do %>
-            <i class="fas fa-heart"></i><%= @tweet.likes.count %>
-          <% end %>
-      <% else %>
-          <%= link_to tweet_likes_path(@tweet), method: :post do %>
-            <i class="far fa-heart"></i><%= @tweet.likes.count %>
-          <% end %>
-      <% end %>
-  <% else %>
-  <i class="far fa-heart"></i><%= @tweet.likes.count %>
-  <% end %>
 
   <div id='map'></div>
 
@@ -73,16 +84,18 @@ function initMap(){
 
 </div>
 
-<div class="tweets-container">
+<div class="like_container">
 
-<h3>いいねしたユーザー</h3>
-<div class="like">
-<p><% @tweet.liked_users.each do |user| %></p>
-  <li><%= user.email %></li>
-<% end %>
+  <h3>いいねしたユーザー</h3>
+  <div class="like">
+    <p><% @tweet.liked_users.each do |user| %></p>
+    <li><%= user.email %></li>
+    <% end %>
+  </div>
 </div>
 
-<h3>コメント一覧</h3>
+<div class="comment">
+  <h3>コメント一覧</h3>
   <% @comments.each do |c| %>
     <div>
       <%= c.user.email unless c.user.blank? %>
@@ -91,6 +104,7 @@ function initMap(){
     </div>
       <br>
   <% end %>
+  
 </div>
 
 <div class="comment-wrapper">

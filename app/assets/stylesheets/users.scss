@@ -18,19 +18,31 @@ fieldset{
   margin-bottom:2%;
   transition:opacity 1s;
   -webkit-transition:opacity 1s;
+  background-color: #2f2f2f;
+  border-radius: 20px;
+  border: solid 3px;
+  border-color: #696969;
+
 
 }
 .login_title h1 {
-  background:#7fbfff;
+  background-color: #2f2f2f;
+  text-shadow: 0 0 10px #007fff,0 0 15px #007fff;
   padding:20px 0; /*PADDING TODOS OS LADOS DE 20PX*/
-  font-size:140%;
-  font-weight:300;
   text-align:center;
   color:#fff;
+  font-size: 32px;
+  font-weight: bold;
+  font-family: constantia,sans-serif;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 }
 .login_form form{
-  background:#f0f0f0;
+  background-color: #2f2f2f;
   padding:6% 4%;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+
 }
 input[type="password"]{
   width:76%;
@@ -40,12 +52,12 @@ input[type="password"]{
   padding:4% 4% 4% 4%;
   font-family:'Open Sans',sans-serif;
   font-size:95%;
-  color:#555;
+  color:#fff;
 }
 .iconPassword{
   width:20px;
   height:20px;
-  background-color:#7fbfff;
+  background-color:#007fff;
   float:left;
   padding:4% 4% 4% 4%;
   margin-bottom:4%;
@@ -57,7 +69,7 @@ input[type="password"]{
 .iconUser{
   width:20px;
   height:20px;
-  background-color:#7fbfff;
+  background-color:#007fff;
   float:left;
   padding:4% 4% 4% 4%;
   margin-bottom:4%;
@@ -74,11 +86,20 @@ input[type="email"]{
   padding:4% 4% 4% 4%;
   font-family:'Open Sans',sans-serif;
   font-size:95%;
-  color:#555;
+  color:#fff;
 }
+
+.checkbox{
+  display: flex;
+}
+
+.checkbox h3{
+  padding: 10px;
+}
+
 .actions input[type="submit"]{
   width:100%;
-  background:#7fbfff;
+  background:#007fff;
   border:0;
   padding:4%;
   font-family:'Open Sans',sans-serif;
@@ -93,6 +114,11 @@ input[type="email"]{
   background:#b7dbff;
 }
 ::-webkit-input-placeholder {
+  text-shadow: 0 0 10px #007fff,0 0 15px #007fff;
+}
+
+.users_links{
+  margin: 50px 30px;
 }
 
 .myprofile_container{
@@ -104,15 +130,14 @@ input[type="email"]{
   margin:0 auto;
   display: flex;
   justify-content: space-between;
-  background-color: #c4dfe6;
+  background-color: #2f2f2f;
   border-radius: 20px;
   border: solid 3px;
-  border-color: #07575b;
+  border-color: #696969;
 }
 
 .left_container,.right_container{
   width: 50%;
-
 }
 
 .right_container{
@@ -190,4 +215,70 @@ input[type="email"]{
 .btn :active::after {
   border: none;
   box-shadow: none;
+}
+
+.tweets-container {
+  width: 100%;
+  display:flex;
+  flex-flow: row wrap;
+}
+
+.tweets-container h2{
+  color: #fff;
+}
+
+.tweet {
+  background-color: #2f2f2f;
+  margin: 20px auto;
+  border-radius: 20px;
+  border: solid 3px;
+  border-color: #696969;
+}
+
+.user_tweet_title{
+  padding-left: 20px;
+  align-items: flex-start;
+  font-family: Arial, Helvetica, sans-serif, sans-serif;
+  font-weight: bold;
+}
+
+.tweet_images img {
+  width: 100%;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.tweet_title{
+  padding: 10px 20px;
+  font-weight: bold;
+}
+
+.tweet_heart{
+  padding-left: 10px;
+}
+
+.tweet_body{
+  padding: 10px 20px;
+}
+
+.tweet_tags{
+  padding: 10px 20px;
+}
+
+.tweet_detail_edit_delate{
+  display: flex;
+}
+
+.tweet_detail{
+  padding: 10px 20px;
+}
+
+.tweet_edit_delate{
+  padding-top: 10px;
+}
+
+.tweet_time{
+  display: flex;
+  justify-content: flex-end;
+  padding:0px 20px 0px 20px;
 }
