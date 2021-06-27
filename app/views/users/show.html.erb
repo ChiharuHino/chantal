@@ -3,7 +3,7 @@
 
     <div class="left_container">
       <div class="myphoto">
-        <p><%= image_tag @user.myphoto_url, size: "200x200" if @user.myphoto? %></p>
+        <p><%= image_tag @user.myphoto_url, size: "250×200" if @user.myphoto? %></p>
       </div>
       <div class="follow">
         <div id="follow_form">
@@ -36,7 +36,7 @@
 <div class="tweets-container">
   <h2>ユーザーの投稿一覧</h2>
   <ul class="tw">
-    <% @user.tweets.each do |t| %>
+    <% @tweets.each do |t| %>
       <li>
         <div class="tweet">
           <div class="tweet_images">

@@ -5,7 +5,7 @@
   }
 
   .tweet_show {
-    width: 60%;
+    width: 50%;
     background-color: #2f2f2f;
     margin: 20px auto;
     border-radius: 20px;
@@ -41,7 +41,12 @@
     justify-content: flex-end;
   }
   .like_container{
+    width: 50%;
     background-color: #2f2f2f;
+    margin: 20px auto;
+    border-radius: 20px;
+    border: solid 3px;
+    border-color: #696969;
   }
 
   .like {
@@ -49,12 +54,20 @@
     padding-top: 20px;
   }
   .comment{
+    width: 50%;
     background-color: #2f2f2f;
+    margin: 20px auto;
+    border-radius: 20px;
+    border: solid 3px;
+    border-color: #696969;
   }
   .comment-wrapper{
-    width: 100%;
-    margin: 10px auto;
+    width: 50%;
+    background-color: #2f2f2f;
+    margin: 20px auto;
+    border-radius: 20px;
+    border: solid 3px;
+    border-color: #696969;
     display: flex;
     flex-direction: column;
-    background-color: #2f2f2f;
   }
